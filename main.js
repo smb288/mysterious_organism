@@ -32,14 +32,27 @@ function pAequorFactory(specimenNumber, dna) {
       } while(newBase === this.dna[dnaIndex]);
 
       this.dna[dnaIndex] = newBase;
+    },
+    // Compares DNA strand with another object.
+    // Prints the percentage of the DNA that is similar.
+    compareDNA(pAequorObj) {
+      let similarCount = 0;
+      for(let i = 0; i < pAequorObj.dna.length; i++) {
+        if(pAequorObj.dna[i] === this.dna[i]) {
+          similarCount++;
+          console.log(`Index: ${i}, ${this.dna[i]}, ${pAequorObj.dna[i]}`)
+        }
+      }
+      let percentSimilar = (similarCount / pAequorObj.dna.length) * 100;
+      console.log(`Specimen #1 and specimen #2 have ${percentSimilar.toPrecision(2)}% DNA in common`);
     }
   };
 }
 
 let aequorArray = []
-for (let i = 0; i < 5; i++)
+for (let i = 0; i < 1; i++)
   aequorArray.push(pAequorFactory(i, mockUpStrand()))
 
-console.log(aequorArray[3].dna);
-aequorArray[3].mutate();
-console.log(aequorArray[3].dna);
+let compareArray = pAequorFactory(2, mockUpStrand());
+console.log(aequorArray[0], compareArray);
+aequorArray[0].compareDNA(compareArray);
