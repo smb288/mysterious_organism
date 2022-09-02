@@ -56,15 +56,39 @@ function pAequorFactory(specimenNumber, dna) {
       
       let percentSurvive = (likelyCounter / this.dna.length) * 100;
       return percentSurvive > 60;
+    },
+    // Returns complementary strand
+    // A = T, C = G
+    complementStrand() {
+      let cStrand = [];
+      for(let i = 0; i < this.dna.length; i++) {
+        switch (this.dna[i]) {
+          case 'A':
+            cStrand.push('T');
+            break;
+          case 'T':
+            cStrand.push('A');
+            break;
+          case 'C':
+            cStrand.push('G');
+            break;
+          case 'G':
+            cStrand.push('C');
+            break;
+          default:
+            break;
+        }
+      }
+      return cStrand;
     }
   };
 }
 
-let likelyStrand = ['C', 'C', 'C', 'A', 'G'];
-let unlikelyStrand = ['A', 'A', 'C', 'A', 'A'];
 let pAequorArray = [];
 
 for(let i = 0; i < 30; i++) 
-  pAequorArray.push(i, mockUpStrand());
+  pAequorArray.push(pAequorFactory(i, mockUpStrand()));
 
-console.log(pAequorArray);
+strandTest = pAequorFactory(0, mockUpStrand());
+console.log(strandTest.dna);
+console.log(strandTest.complementStrand());
