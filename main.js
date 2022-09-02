@@ -45,14 +45,31 @@ function pAequorFactory(specimenNumber, dna) {
       }
       let percentSimilar = (similarCount / pAequorObj.dna.length) * 100;
       console.log(`Specimen #1 and specimen #2 have ${percentSimilar.toPrecision(2)}% DNA in common`);
+    },
+    // Calculates percentage of bases that are C or G
+    willLikelySurvive() {
+      let likelyCounter = 0;
+      for(let i = 0; i < this.dna.length; i++) {
+        if(this.dna[i] === 'C' || this.dna[i] === 'G')
+          likelyCounter++;
+      }
+      
+      let percentSurvive = (likelyCounter / this.dna.length) * 100;
+      return percentSurvive > 60;
     }
   };
 }
 
-let aequorArray = []
-for (let i = 0; i < 1; i++)
-  aequorArray.push(pAequorFactory(i, mockUpStrand()))
+// let aequorArray = []
+// for (let i = 0; i < 1; i++)
+//   aequorArray.push(pAequorFactory(i, mockUpStrand()))
 
-let compareArray = pAequorFactory(2, mockUpStrand());
-console.log(aequorArray[0], compareArray);
-aequorArray[0].compareDNA(compareArray);
+// let compareArray = pAequorFactory(2, mockUpStrand());
+// console.log(aequorArray[0], compareArray);
+// aequorArray[0].compareDNA(compareArray);
+let likelyStrand = ['C', 'C', 'C', 'A', 'G'];
+let unlikelyStrand = ['A', 'A', 'C', 'A', 'A'];
+let likelyStrandStruct = pAequorFactory(0, likelyStrand);
+let unlikelyStrandStruct = pAequorFactory(1, unlikelyStrand);
+console.log(likelyStrandStruct.willLikelySurvive());
+console.log(unlikelyStrandStruct.willLikelySurvive());
